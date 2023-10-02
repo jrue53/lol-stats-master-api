@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace lol_stats_master_api.DataContext
 {
-    public class Match
+    public class Match : IMatch
     {
         public async Task<List<string>?> GetMatchIds(string puuid)
         {
@@ -63,6 +63,7 @@ namespace lol_stats_master_api.DataContext
             }
             return null;
         }
+        //this is a service
         public async Task<MatchesDTO?> GetMatches(string puuid)
         {
             List<string>? ids = await GetMatchIds(puuid);
@@ -74,7 +75,7 @@ namespace lol_stats_master_api.DataContext
             for (int i = 0; i < ids.Count; i++)
             {
                 MatchDTO? item = await GetMatch(ids[i]);
-                if(item == null)
+                if (item == null)
                 {
                     continue;
                 }

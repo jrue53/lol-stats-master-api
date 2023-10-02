@@ -10,7 +10,11 @@ namespace lol_stats_master_api.Controllers
     [ApiController]
     public class LoLAccount : ControllerBase
     {
-        //get specific
+        private ISummoner _summonerContext;
+        public LoLAccount(ISummoner summonerContext)
+        {
+            _summonerContext = summonerContext;
+        }
 
         // GET api/<LoLAccount>/5
         [HttpGet]
@@ -20,7 +24,7 @@ namespace lol_stats_master_api.Controllers
         public async Task<ActionResult<ISummonerDTO>> GetSummonerAsync(string name)
         {
 
-            ISummonerDTO? summoner = await new Summoner().GetSummonerByName(name);
+            ISummonerDTO? summoner = await _summonerContext.GetSummonerByName(name);
 
             if (summoner == null )
             {

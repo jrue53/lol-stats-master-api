@@ -10,6 +10,11 @@ namespace lol_stats_master_api.Controllers
     [ApiController]
     public class Matches : ControllerBase
     {
+        private IMatch _matchContext;
+        public Matches(IMatch matchContext)
+        {
+            _matchContext = matchContext;
+        }
         // GET: api/<Matches>
         [HttpGet]
         [Route("{puuid}")]
@@ -18,7 +23,7 @@ namespace lol_stats_master_api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<MatchesDTO>> GetMatchesAsync(string puuid)
         {
-            MatchesDTO? matches = await new Match().GetMatches(puuid);
+            MatchesDTO? matches = await _matchContext.GetMatches(puuid);
 
             if(matches == null)
             {
