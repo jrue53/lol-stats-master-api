@@ -63,7 +63,11 @@ namespace lol_stats_master_api.DataContext
             }
             return null;
         }
-        //this is a service
+        /// <summary>
+        /// gets all the matches for a user's encrypted puuid
+        /// </summary>
+        /// <param name="puuid"></param>
+        /// <returns>a list of matches</returns>
         public async Task<MatchesDTO?> GetMatches(string puuid)
         {
             List<string>? ids = await GetMatchIds(puuid);
